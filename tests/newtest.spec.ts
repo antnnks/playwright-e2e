@@ -12,11 +12,10 @@ test('login', async ({ page }) => {
   await page.locator('#modal-iframe').contentFrame().getByRole('textbox', { name: 'Passwort' }).click();
   await page.locator('#modal-iframe').contentFrame().getByRole('textbox', { name: 'Passwort' }).fill(process.env.USER_PASSWORD!);;
   await page.locator('#modal-iframe').contentFrame().getByRole('button', { name: 'Anmelden' }).click();
-  await expect(page.getByRole('link', { name: 'Anmelden' })).not.toBeVisible({ timeout: 15000 });
-  await expect(page.getByRole('button', { name: 'Mein Konto' })).toBeVisible({ timeout: 15000 });
+  await expect(page.locator('#modal-iframe')).toBeHidden({ timeout: 10000 });
+  await page.waitForTimeout(2000);
+  await expect(page.getByRole('button', { name: 'Mein Konto' })).toBeVisible({ timeout: 10000 });
 });
-
-
 
 test('search', async ({ page }) => {
   await page.goto('https://www.tagesspiegel.de/');
