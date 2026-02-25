@@ -53,17 +53,43 @@ npx playwright show-report
 Browser traces and artifacts are saved under `results/browser/traces/`.
 
 ## Robot Framework tests
+Robot tests are in the `tests/` folder (for example `test.robot`).
 
-Robot tests are in the `tests/` folder (file `test.robot`).
-
-Run the Robot test file:
+Basic run (from repository root):
 
 ```bash
-# from repository root
 robot tests/test.robot
 ```
 
-Robot output files (`output.xml`, `log.html`, `report.html`) are created in the working directory by default; check the `test-results/` directory for saved results.
+Recommended: run inside a Python virtual environment:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install robotframework
+```
+
+Run and save outputs to a results directory:
+
+```bash
+robot --outputdir test-results --log test-results/log.html --report test-results/report.html tests/test.robot
+```
+
+Run a single test case or test by name (use `--test` / `-t`):
+
+```bash
+robot --outputdir test-results --test "Login Test" tests/test.robot
+```
+
+Run tests by tag or exclude tags:
+
+```bash
+robot --outputdir test-results --include smoke tests/
+robot --outputdir test-results --exclude slow tests/
+```
+
+Generate the standard Robot Framework artifacts (`output.xml`, `log.html`, `report.html`) in `test-results/` and open `test-results/log.html` in a browser to view results.
 
 ## Test artifacts & reports
 
