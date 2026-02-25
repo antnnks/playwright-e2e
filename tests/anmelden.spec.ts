@@ -10,5 +10,6 @@ test('Anmelden', async ({ page }) => {
   await page.locator('#modal-iframe').contentFrame().getByRole('textbox', { name: 'Passwort' }).click();
   await page.locator('#modal-iframe').contentFrame().getByRole('textbox', { name: 'Passwort' }).fill(password);
   await page.locator('#modal-iframe').contentFrame().getByRole('button', { name: 'Anmelden' }).click();
+  await expect(page.locator('#modal-iframe')).toBeHidden({ timeout: 15000 });
   await expect(page.getByRole('button', { name: 'Mein Konto' })).toBeVisible({ timeout: 15000 });
 });
